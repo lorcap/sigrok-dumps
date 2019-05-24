@@ -20,16 +20,30 @@
 from .ft8xx import Ft8xx
 from .param import *
 
-class Ft8xxRegister (Ft8xx):
+class Ft8xxRamReg (Ft8xx):
     '''Writer of FT8xx's Register commands in VCD format.
 
-    For register references, see:
+    For command references, see:
+    - Document Reference No.: BRT_000220
+    - Document Title: BT81X (815/6) Advanced Embedded Video Engine Datasheet
+    - Version: 1.0
+    - Date:
+    - Chapter: 5.1 - Registers
+    - Pages: 42-47
+
     - Document Reference No.: BRT_000002
-    - Document Title: FT81X Embedded Video Engine Datasheet
+    - Document Title: FT81x (Advanced Embedded Video Engine)
     - Version: 1.4
-    - Date: 2017-06-30
+    - Date:
     - Chapter: 5.1 - Registers
     - Pages: 41-46
+
+    - Document Reference No.: BRT_000039
+    - Document Title: FT800 (Embedded Video Engine)
+    - Version: 1.3
+    - Date:
+    - Chapter: 5.1 - FT800 Registers
+    - Pages: 34-37
     '''
 
     def __enter__ (self):
@@ -92,31 +106,31 @@ class Ft8xxRegister (Ft8xx):
         self._reg(0x30202c, 12, write, read)
 
     def reg_hoffset (self, write=None, read=0x02b):
-        self._reg(0x302030, 11, write, read)
+        self._reg(0x302030, 12, write, read)
 
     def reg_hsize (self, write=None, read=0x1e0):
-        self._reg(0x302034, 11, write, read)
+        self._reg(0x302034, 12, write, read)
 
     def reg_hsync0 (self, write=None, read=0x000):
-        self._reg(0x302038, 11, write, read)
+        self._reg(0x302038, 12, write, read)
 
     def reg_hsync1 (self, write=None, read=0x029):
-        self._reg(0x30203c, 11, write, read)
+        self._reg(0x30203c, 12, write, read)
 
     def reg_vcycle (self, write=None, read=0x124):
-        self._reg(0x302040, 11, write, read)
+        self._reg(0x302040, 12, write, read)
 
     def reg_voffset (self, write=None, read=0x00c):
-        self._reg(0x302044, 11, write, read)
+        self._reg(0x302044, 12, write, read)
 
     def reg_vsize (self, write=None, read=0x110):
-        self._reg(0x302048, 11, write, read)
+        self._reg(0x302048, 12, write, read)
 
     def reg_vsync0 (self, write=None, read=0x000):
-        self._reg(0x30204c, 11, write, read)
+        self._reg(0x30204c, 10, write, read)
 
     def reg_vsync1 (self, write=None, read=0x00a):
-        self._reg(0x302050, 11, write, read)
+        self._reg(0x302050, 10, write, read)
 
     def reg_dlswap (self, write=None, read=0):
         self._reg(0x302054, 2, write, read)
@@ -237,14 +251,20 @@ class Ft8xxRegister (Ft8xx):
     def reg_touch_charge (self, write=None, read=9000):
         self._reg(0x30210c, 16, write, read)
 
+    reg_ehost_touch_x = reg_touch_charge
+
     def reg_touch_settle (self, write=None, read=3):
         self._reg(0x302110, 4, write, read)
 
     def reg_touch_oversample (self, write=None, read=7):
         self._reg(0x302114, 4, write, read)
 
+    reg_ehost_touch_id = reg_touch_oversample
+
     def reg_touch_rzthresh (self, write=None, read=0xffff):
         self._reg(0x302118, 16, write, read)
+
+    reg_ehost_touch_y = reg_touch_rzthresh
 
     def reg_touch_raw_xy (self, *, read=0):
         self._reg(0x30211c, 32, None, read)
@@ -319,7 +339,7 @@ class Ft8xxRegister (Ft8xx):
         self._reg(0x302174, 1, write, read)
 
     def reg_trim (self, write=None, read=0):
-        self._reg(0x302180, 8, write, read)
+        self._reg(0x302180, 5, write, read)
 
     def reg_ana_comp (self, write=None, read=0):
         self._reg(0x302184, 8, write, read)
@@ -346,4 +366,13 @@ class Ft8xxRegister (Ft8xx):
 
     def reg_cmdb_write (self, write=None):
         self._reg(0x302578, 32, write, None)
+
+    def reg_adaptive_framerate (self, write=None, read=1):
+        self._reg(0x30257c, 1, write, read)
+
+    def reg_playback_pause (self, write=None, read=0):
+        self._reg(0x3025ec, 1, write, read)
+
+    def reg_flash_status (self, write=None, read=0):
+        self._reg(0x3025f0, 2, write, read)
 

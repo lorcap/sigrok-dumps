@@ -20,16 +20,30 @@
 from .ft8xx import HOST, Ft8xx
 from .param import *
 
-class Ft8xxCoProcCommand (Ft8xx):
+class Ft8xxCoProc (Ft8xx):
     '''Writer of FT8xx's Co-Processor Commands in VCD format.
 
     For command references, see:
+    - Document Reference No.: BRT_000225
+    - Document Title: Application Note - BRT_AN_033 - BT81X Series Programming Guide
+    - Version: 1.0
+    - Date: 2018-08-14
+    - Chapter: 5 - Co-Processor Engine
+    - Pages: 108-213
+
     - Document Reference No.: BRT_000031
     - Document Title: FT81x Series Programmers Guide
-    - Version: 1.1
+    - Version: 1.2
+    - Date: 2018-10-02
+    - Chapter: 5 - Co-Processor Engine
+    - Pages: 150-249
+
+    - Document Reference No.: BRT_000030
+    - Document Title: FT800 Series Programmer Guide
+    - Version: 2.1
     - Date: 2016-09-19
     - Chapter: 5 - Co-Processor Engine
-    - Pages: 161-251
+    - Pages: 144-248
     '''
 
     def __init__ (self, file, *, write_addr=None, read_addr=None):

@@ -19,11 +19,11 @@
 
 '''Very simple Value Change Dump writer of SPI protocol.'''
 
-from .cmd_coproc import Ft8xxCoProcCommand
-from .cmd_dl     import Ft8xxDisplayList
-from .cmd_host   import Ft8xxHostCommand
-from .cmd_reg    import Ft8xxRegister
+from .coproc   import Ft8xxCoProc
+from .displist import Ft8xxDispList
+from .hostcmd  import Ft8xxHostCmd
+from .ramreg   import Ft8xxRamReg
 
-__all__ = ('Ft8xxCoProcCommand', 'Ft8xxDisplayList',
-           'Ft8xxHostCommand', 'Ft8xxRegister')
+__all__ = ('Ft8xxCoProc', 'Ft8xxDispList',
+           'Ft8xxHostCmd', 'Ft8xxRamReg')
 

@@ -20,16 +20,30 @@
 from .ft8xx import HOST, Ft8xx
 from .param import *
 
-class Ft8xxDisplayList (Ft8xx):
-    '''Writer of FT8xx's Display List commands in VCD format.
+class Ft8xxDispList (Ft8xx):
+    '''Writer of FT8xx/BT81x's Display List commands in VCD format.
 
     For command references, see:
+    - Document Reference No.: BRT_000225
+    - Document Title: Application Note - BRT_AN_033 - BT81X Series Programming Guide
+    - Version: 1.0
+    - Date: 2018-08-14
+    - Chapter: 4 - Display List Commands
+    - Pages: 65-107
+
     - Document Reference No.: BRT_000031
     - Document Title: FT81x Series Programmers Guide
-    - Version: 1.1
+    - Version: 1.2
+    - Date: 2018-10-02
+    - Chapter: 4 - Display List Commands
+    - Pages: 89-149
+
+    - Document Reference No.: BRT_000030
+    - Document Title: FT800 Series Programmer Guide
+    - Version: 2.1
     - Date: 2016-09-19
     - Chapter: 4 - Display List Commands
-    - Pages: 92-149
+    - Pages: 81-143
     '''
 
     def __init__ (self, file, *, write_addr=None, read_addr=None):
@@ -83,20 +97,20 @@ class Ft8xxDisplayList (Ft8xx):
     def bitmap_swizzle (self, r, g, b, a):
         self._dl(0x2f, (r, 11, 9), (g, 8, 6), (b, 5, 3), (a, 2, 0))
 
-    def bitmap_transform_a (self, a):
-        self._dl(0x15, (a, 16, 0))
+    def bitmap_transform_a (self, p, v):
+        self._dl(0x15, (p, 17), (v, 16, 0))
 
-    def bitmap_transform_b (self, b):
-        self._dl(0x16, (b, 16, 0))
+    def bitmap_transform_b (self, p, v):
+        self._dl(0x16, (p, 17), (v, 16, 0))
 
     def bitmap_transform_c (self, c):
         self._dl(0x17, (c, 23, 0))
 
-    def bitmap_transform_d (self, d):
-        self._dl(0x18, (d, 16, 0))
+    def bitmap_transform_d (self, p, v):
+        self._dl(0x18, (p, 17), (v, 16, 0))
 
-    def bitmap_transform_e (self, e):
-        self._dl(0x19, (e, 16, 0))
+    def bitmap_transform_e (self, p, v):
+        self._dl(0x19, (p, 17), (v, 16, 0))
 
     def bitmap_transform_f (self, f):
         self._dl(0x1a, (f, 23, 0))
@@ -202,5 +216,4 @@ class Ft8xxDisplayList (Ft8xx):
 
     def vertex_translate_y (self, y):
         self._dl(0x2b, (y, 16, 0))
-
 

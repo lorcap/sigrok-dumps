@@ -18,8 +18,8 @@
 ## along with this program; if not, see <http://www.gnu.org/licenses/>.
 ##
 
-from vcd import Ft8xxCoProcCommand, Ft8xxDisplayList,\
-                Ft8xxHostCommand, Ft8xxRegister
+from vcd import Ft8xxCoProc, Ft8xxDispList,\
+                Ft8xxHostCmd, Ft8xxRamReg
 
 '''PNG data of a 1-red-pixel image.'''
 RED_DOT_PNG = (137,  80,  78,  71,  13,  10,  26,  10,
@@ -37,7 +37,7 @@ RED_DOT_ZLIB = (120,156,187,255,31,0,2,191,1,223)
 
 def host_cmd (filename):
     '''Generate a VCD file with all Host Commands.'''
-    with Ft8xxHostCommand(open(filename, 'w')) as ft:
+    with Ft8xxHostCmd(open(filename, 'w')) as ft:
         ft.active()
         ft.standby()
         ft.sleep()
@@ -54,7 +54,7 @@ def host_cmd (filename):
 
 def host_err (filename):
     '''Generate a VCD file with errors in Host Commands.'''
-    with Ft8xxHostCommand(open(filename, 'w')) as ft:
+    with Ft8xxHostCmd(open(filename, 'w')) as ft:
         ft.clksel(0, 1)
         ft.clksel(0, 4)
         ft.cmd(0x44, 0x01)
@@ -68,7 +68,7 @@ def host_err (filename):
 
 def coproc_cmd (filename):
     '''Generate a VCD file with all co-processor commands.'''
-    with Ft8xxCoProcCommand(file=open(filename, 'w'), write_addr=0x308000) as ft:
+    with Ft8xxCoProc(file=open(filename, 'w'), write_addr=0x308000) as ft:
         ft.cmd_dlstart()
         ft.cmd_swap()
         ft.cmd_coldstart()
@@ -127,9 +127,9 @@ def coproc_cmd (filename):
         ft.cmd_logo()
         ft.cmd_csketch(100, 100, 24, 48, 0, 1, 0)
 
-def dl_cmd (filename):
+def displist_cmd (filename):
     '''Generate a VCD file with all Display List commands.'''
-    with Ft8xxDisplayList(file=open(filename, 'w'), write_addr=0x301020) as ft:
+    with Ft8xxDispList(file=open(filename, 'w'), write_addr=0x301020) as ft:
         ft.alpha_func(1, 10)
         ft.begin(3)
         ft.bitmap_handle(4)
@@ -139,12 +139,12 @@ def dl_cmd (filename):
         ft.bitmap_size_h(1, 1)
         ft.bitmap_source(0x1234)
         ft.bitmap_swizzle(0, 1, 2, 3)
-        ft.bitmap_transform_a(0x1000)
-        ft.bitmap_transform_b(0x1000)
+        ft.bitmap_transform_a(0, 0x1000)
+        ft.bitmap_transform_b(1, 0x1000)
         ft.bitmap_transform_c(0x100000)
-        ft.bitmap_transform_d(0x1000)
-        ft.bitmap_transform_e(0x1000)
-        ft.bitmap_transform_f(0x100000)
+        ft.bitmap_transform_d(0, 0x1020)
+        ft.bitmap_transform_e(1, 0x1020)
+        ft.bitmap_transform_f(0x102030)
         ft.blend_func(1, 2)
         ft.call(0x1234)
         ft.cell(12)
@@ -180,9 +180,9 @@ def dl_cmd (filename):
         ft.vertex_translate_x(100)
         ft.vertex_translate_y(100)
 
-def reg_cmd (filename):
+def ramreg_cmd (filename):
     '''Generate a VCD file with all register writings.'''
-    with Ft8xxRegister(open(filename, 'w')) as ft:
+    with Ft8xxRamReg(open(filename, 'w')) as ft:
         ft.reg_id()
         ft.reg_frames()
         ft.reg_clock()
@@ -282,13 +282,16 @@ def reg_cmd (filename):
         ft.reg_datestamp(read=(0x01234567, 0x89abcdef, 0x01234567, 0x89abcdef))
         ft.reg_cmdb_space(0xffc)
         ft.reg_cmdb_write(0)
+        ft.reg_adaptive_framerate(1)
+        ft.reg_playback_pause(0)
+        ft.reg_flash_status(2)
 
 if __name__ == '__main__':
     import sys
 
-    host_cmd('host_cmd.vcd')
-    host_err('host_err.vcd')
-    coproc_cmd('coproc_cmd.vcd')
-    dl_cmd('dl_cmd.vcd')
-    reg_cmd('reg_cmd.vcd')
+    host_cmd('hostcmd.vcd')
+    host_err('hostcmd_err.vcd')
+    coproc_cmd('coproc.vcd')
+    displist_cmd('displist.vcd')
+    ramreg_cmd('ramreg.vcd')
 

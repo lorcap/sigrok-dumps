@@ -20,16 +20,30 @@
 from .ft8xx import Ft8xx
 from .param import *
 
-class Ft8xxHostCommand (Ft8xx):
+class Ft8xxHostCmd (Ft8xx):
     '''Writer of FT8xx's Host Commands in VCD format.
 
     For command references, see:
+    - Document Reference No.: BRT_000220
+    - Document Title: BT81X (815/6) Advanced Embedded Video Engine Datasheet
+    - Version: 1.0
+    - Date:
+    - Chapter: 4.1.5 - Host Command
+    - Pages: 15-18
+
     - Document Reference No.: BRT_000002
-    - Document Title: FT81X Embedded Video Engine Datasheet
+    - Document Title: FT81x (Advanced Embedded Video Engine)
     - Version: 1.4
-    - Date: 2017-06-30
+    - Date:
     - Chapter: 4.1.5 - Host Command
     - Pages: 16-20
+
+    - Document Reference No.: BRT_000039
+    - Document Title: FT800 (Embedded Video Engine)
+    - Version: 1.3
+    - Date:
+    - Chapter: 4.1.6 - Host Command
+    - Pages: 14-15
     '''
 
     def cmd (self, byte1, *byte2, byte3=0x00):

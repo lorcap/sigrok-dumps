@@ -41,8 +41,8 @@ def _byte (val, range_):
 
 def char (string):
     '''Generate a null-terminated sequence of chars.'''
-    for c in string:
-        yield ord(c)
+    for c in bytes(string, 'utf8'):
+        yield c
     yield 0
 
 def addr (val):

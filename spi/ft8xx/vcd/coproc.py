@@ -147,6 +147,10 @@ class Ft8xxCoProc (Ft8xx):
         self._cmd(0xffffff0b, int16(x0, y0), int32(bit(rgb0, 24, 0)),
                               int16(x1, y1), int32(bit(rgb1, 24, 0)))
 
+    def cmd_gradienta (self, x0, y0, argb0, x1, y1, argb1):
+        self._cmd(0xffffff57, int16(x0, y0), int32(argb0),
+                              int16(x1, y1), int32(argb1))
+
     def cmd_keys (self, x, y, w, h, font, options, s):
         self._cmd(0xffffff0e, int16(x, y, w, h, font, options), char(s))
 
@@ -165,8 +169,8 @@ class Ft8xxCoProc (Ft8xx):
     def cmd_toggle (self, x, y, w, font, options, state, s):
         self._cmd(0xffffff12, int16(x, y, w, font, options, state), char(s))
 
-    def cmd_text (self, x, y, font, options, s):
-        self._cmd(0xffffff0c, int16(x, y, font, options), char(s))
+    def cmd_text (self, x, y, font, options, s, *args):
+        self._cmd(0xffffff0c, int16(x, y, font, options), char(s), int32(*args))
 
     def cmd_setbase (self, b):
         self._cmd(0xffffff38, int32(b))
@@ -195,6 +199,9 @@ class Ft8xxCoProc (Ft8xx):
     def cmd_rotate (self, a):
         self._cmd(0xffffff29, int32(a))
 
+    def cmd_rotatearound (self, x, y, a, s):
+        self._cmd(0xffffff51, int32(x, y, a, s))
+
     def cmd_translate (self, tx, ty):
         self._cmd(0xffffff27, int32(tx, ty))
 
@@ -213,6 +220,9 @@ class Ft8xxCoProc (Ft8xx):
     def cmd_sketch (self, x, y, w, h, ptr, format):
         self._cmd(0xffffff30, int16(x, y, w, h), int32(ptr), int16(format))
 
+    def cmd_csketch (self, x, y, w, h, ptr, format, freq):
+        self._cmd(0xffffff35, int16(x, y, w, h), int32(ptr), int16(format, freq))
+
     def cmd_stop (self):
         self._cmd(0xffffff17)
 
@@ -228,6 +238,9 @@ class Ft8xxCoProc (Ft8xx):
     def cmd_romfont (self, font, romslot):
         self._cmd(0xffffff3f, int32(font, romslot))
 
+    def cmd_resetfonts (self):
+        self._cmd(0xffffff52)
+
     def cmd_track (self, x, y, w, h, tag):
         self._cmd(0xffffff2c, int16(x, y, w, h, tag))
 
@@ -237,12 +250,72 @@ class Ft8xxCoProc (Ft8xx):
     def cmd_snapshot2 (self, fmt, ptr, x, y, w, h):
         self._cmd(0xffffff37, int32(fmt, ptr), int16(x, y, w, h))
 
-    def cmd_setbitmap (self, addr, fmt, width, height):
-        self._cmd(0xffffff43, int32(addr), int16(fmt, width, height))
+    def cmd_setbitmap (self, source, fmt, width, height):
+        self._cmd(0xffffff43, int32(source), int16(fmt, width, height))
 
     def cmd_logo (self):
         self._cmd(0xffffff31)
 
-    def cmd_csketch (self, x, y, w, h, ptr, format, freq):
-        self._cmd(0xffffff35, int16(x, y, w, h), int32(ptr), int16(format, freq))
+    def cmd_flasherase (self):
+        self._cmd(0xffffff44)
+
+    def cmd_flashwrite (self, ptr, num):
+        self._cmd(0xffffff45, int32(ptr, num))
+
+    def cmd_flashread (self, dest, src, num):
+        self._cmd(0xffffff46, int32(dest, src, num))
+
+    def cmd_appendf (self, ptr, num):
+        self._cmd(0xffffff59, int32(ptr, num))
+
+    def cmd_flashupdate (self, dest, src, num):
+        self._cmd(0xffffff47, int32(dest, src, num))
+
+    def cmd_flashdetach (self):
+        self._cmd(0xffffff48)
+
+    def cmd_flashattach (self):
+        self._cmd(0xffffff49)
+
+    def cmd_flashfast (self, result=0):
+        self._cmd(0xffffff4a, int32(result))
+
+    def cmd_flashspidesel (self):
+        self._cmd(0xffffff4b)
+
+    def cmd_flashspitx (self, num):
+        self._cmd(0xffffff4c, int32(num))
+
+    def cmd_flashspirx (self, ptr, num):
+        self._cmd(0xffffff4d, int32(ptr, num))
+
+    def cmd_clearcache (self):
+        self._cmd(0xffffff4f)
+
+    def cmd_flashsource (self, ptr):
+        self._cmd(0xffffff4e, int32(ptr))
+
+    def cmd_videostartf (self):
+        self._cmd(0xffffff5f)
+
+    def cmd_animstart (self, ch, aoptr, loop):
+        self._cmd(0xffffff53, int32(ch, aoptr, loop))
+
+    def cmd_animstop (self, ch):
+        self._cmd(0xffffff54, int32(ch))
+
+    def cmd_animxy (self, ch, x, y):
+        self._cmd(0xffffff55, int32(ch), int16(x, y))
+
+    def cmd_animdraw (self, ch):
+        self._cmd(0xffffff56, int32(ch))
+
+    def cmd_animframe (self, x, y, aoptr, frame):
+        self._cmd(0xffffff5a, int16(x, y), int32(aoptr, frame))
+
+    def cmd_sync (self):
+        self._cmd(0xffffff42)
+
+    def cmd_bitmap_transform (self, x0, y0, x1, y1, x2, y2, tx0, ty0, tx1, ty1, tx2, ty2, result=0):
+        self._cmd(0xffffff21, int32(x0, y0, x1, y1, x2, y2, tx0, ty0, tx1, ty1, tx2, ty2), int16(result))
 

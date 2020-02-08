@@ -75,7 +75,7 @@ def coproc_cmd (filename):
         ft.cmd_swap()
         ft.cmd_append(0, 40)
         ft.cmd_regread(0x302008, 0)
-        ft.cmd_memwrite(0x3020d4, 0, 0, 0, 100)
+        ft.cmd_memwrite(0x3020d4, *range(33))
         ft.cmd_inflate(0x8000, *RED_DOT_ZLIB)
         ft.cmd_loadimage(0, 0, *RED_DOT_PNG)
         ft.cmd_mediafifo(0x100000 - 65536, 65536)

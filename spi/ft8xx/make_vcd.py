@@ -77,6 +77,7 @@ def coproc_cmd (filename):
         ft.cmd_regread(0x302008, 0)
         ft.cmd_memwrite(0x3020d4, *range(33))
         ft.cmd_inflate(0x8000, *RED_DOT_ZLIB)
+        ft.cmd_inflate2(0x8080, 64, None)
         ft.cmd_loadimage(0, 0, *RED_DOT_PNG)
         ft.cmd_mediafifo(0x100000 - 65536, 65536)
         #ft.cmd_playvideo(8|4, data?)

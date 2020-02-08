@@ -33,11 +33,12 @@ def bit2int (*bit_list):
 
 def _byte (val, range_):
     '''Generate a byte sequence in `range_` order out of integer `val`.'''
-    size = len(range_)
-    val = int(val) & 2**(8*size) - 1
-    byte = bytes.fromhex(f'{val:0{2*size}x}')
-    for i in range_:
-        yield byte[i]
+    if val != None:
+        size = len(range_)
+        val = int(val) & 2**(8*size) - 1
+        byte = bytes.fromhex(f'{val:0{2*size}x}')
+        for i in range_:
+            yield byte[i]
 
 def char (string):
     '''Generate a null-terminated sequence of chars.'''

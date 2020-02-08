@@ -98,6 +98,9 @@ class Ft8xxCoProc (Ft8xx):
     def cmd_inflate (self, ptr, *bytes_):
         self._cmd(0xffffff22, int32(ptr), int8(*bytes_))
 
+    def cmd_inflate2 (self, ptr, opts, *bytes_):
+        self._cmd(0xffffff50, int32(ptr), int32(opts), int8(*bytes_))
+
     def cmd_loadimage (self, ptr, options, *bytes_):
         self._cmd(0xffffff24, int32(ptr, options), int8(*bytes_))
 

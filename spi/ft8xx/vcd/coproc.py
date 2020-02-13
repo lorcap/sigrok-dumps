@@ -129,7 +129,7 @@ class Ft8xxCoProc (Ft8xx):
         self._cmd(0xffffff1d, int32(dest, src, num))
 
     def cmd_button (self, x, y, w, h, font, options, s):
-        self._cmd(0xffffff1d, int16(x, y, w, h, font, options), char(s))
+        self._cmd(0xffffff0d, int16(x, y, w, h, font, options), char(s))
 
     def cmd_clock (self, x, y, r, options, h, m, s, ms):
         self._cmd(0xffffff14, int16(x, y, r, options, h, m, s, ms))

@@ -100,7 +100,7 @@ def coproc_cmd (filename):
         ft.cmd_scrollbar(20, 50, 120, 8, 0, 10, 40, 100)
         ft.cmd_slider(20, 50, 120, 8, 0, 50, 100)
         ft.cmd_dial(80, 60, 55, 0, 0x8000)
-        ft.cmd_toggle(60, 20, 33, 27, 0, 0, 'no\xffyes')
+        ft.cmd_toggle(60, 20, 33, 27, 0, 0, b'no\xffyes')
         ft.cmd_text(0, 0, 31, 0, 'Text!')
         ft.cmd_text(0, 0, 26, 4096, '%3d%% complete', 51)
         ft.cmd_text(0, 0, 26, 4096, 'base address %06x', 0x12a000)

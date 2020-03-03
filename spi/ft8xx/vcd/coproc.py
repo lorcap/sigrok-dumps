@@ -170,7 +170,7 @@ class Ft8xxCoProc (Ft8xx):
         self._cmd(0xffffff2d, int16(x, y, r, options, val))
 
     def cmd_toggle (self, x, y, w, font, options, state, s):
-        self._cmd(0xffffff12, int16(x, y, w, font, options, state), char(s))
+        self._cmd(0xffffff12, int16(x, y, w, font, options, state), data(s + b'\x00'))
 
     def cmd_text (self, x, y, font, options, s, *args):
         self._cmd(0xffffff0c, int16(x, y, font, options), char(s), int32(*args))

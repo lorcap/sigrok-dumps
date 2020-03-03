@@ -19,7 +19,7 @@
 
 '''Generators of bytes from data types.'''
 
-from .param import addr, bit, bit2int, char, int8, int16, int32
+from .param import addr, bit, bit2int, char, data, int8, int16, int32
 
-__all__ = ('addr', 'bit', 'bit2int', 'char', 'int8', 'int16', 'int32')
+__all__ = ('addr', 'bit', 'bit2int', 'char', 'data', 'int8', 'int16', 'int32')
 

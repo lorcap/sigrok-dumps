@@ -42,9 +42,13 @@ def _byte (val, range_):
 
 def char (string):
     '''Generate a null-terminated sequence of chars.'''
-    for c in bytes(string, 'utf8'):
-        yield c
+    yield from data(bytes(string, 'utf8'))
     yield 0
+
+def data (byte):
+    '''Geneare a sequence of data bytes.'''
+    for b in byte:
+        yield b
 
 def addr (val):
     '''Generate a 3-byte memory address out of integer `val`.'''

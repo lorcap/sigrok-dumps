@@ -42,8 +42,14 @@ def _byte (val, range_):
 
 def char (string):
     '''Generate a null-terminated sequence of chars.'''
-    yield from data(bytes(string, 'utf8'))
+    b = bytes(string, 'utf8')
+    yield from data(b)
     yield 0
+
+    rem = (len(b) + 1) % 4
+    if rem:
+        for i in range(4 - rem):
+            yield 0
 
 def data (byte):
     '''Geneare a sequence of data bytes.'''
